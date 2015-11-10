@@ -3,16 +3,11 @@ FROM debian:jessie
 MAINTAINER Datadog <package@datadoghq.com>
 
 ENV DOCKER_DD_AGENT yes
-ENV AGENT_VERSION 1:5.5.2-1
+ENV AGENT_VERSION 1:5.6.0-1
 
 # Install the Agent
-RUN echo "deb http://apt.datadoghq.com/ docker main" > /etc/apt/sources.list.d/datadog.list \
- && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7A7DA52 \
- && apt-get update \
- && apt-get install --no-install-recommends -y datadog-agent="${AGENT_VERSION}" \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+COPY datadog-agent_5.6.0.git.137.af554d2-1_amd64.deb /datadog-agent.deb
+RUN dpkg -i /datadog-agent.deb
 # Configure the Agent
 # 1. Listen to statsd from other containers
 # 2. Turn syslog off
