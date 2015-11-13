@@ -3,11 +3,11 @@ FROM debian:jessie
 MAINTAINER Datadog <package@datadoghq.com>
 
 ENV DOCKER_DD_AGENT yes
-ENV AGENT_VERSION 1:5.7.0.git.28.ea23190-1
+ENV AGENT_VERSION 1:5.7.0.git.27.0a8a1b6-1
 
 
 # Install the Agent
-ADD https://circle-artifacts.com/gh/DataDog/docker-dd-agent-build-deb-x64/600/artifacts/0/home/ubuntu/docker-dd-agent-build-deb-x64/pkg/datadog-agent_5.7.0.git.28.ea23190-1_amd64.deb /
+ADD https://roy.datad0g.com/view/Mars%20team/job/agent-test-last-build-and-release/lastSuccessfulBuild/artifact/pkg/datadog-agent_5.7.0.git.27.0a8a1b6-1_amd64.deb /
 RUN dpkg -i /datadog-agent_5.7.0.git.28.ea23190-1_amd64.deb && rm /datadog-agent_5.7.0.git.28.ea23190-1_amd64.deb
 
 # Configure the Agent
