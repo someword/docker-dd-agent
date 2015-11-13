@@ -3,13 +3,18 @@ FROM debian:jessie
 MAINTAINER Datadog <package@datadoghq.com>
 
 ENV DOCKER_DD_AGENT yes
-ENV AGENT_VERSION 1:5.7.0.git.27.0a8a1b6-1
+ENV AGENT_VERSION 1:5.6.1.git.1.d2ef627-1
 
 
 # Install the Agent
-ADD https://roy.datad0g.com/view/Mars%20team/job/agent-test-last-build-and-release/lastSuccessfulBuild/artifact/pkg/datadog-agent_5.7.0.git.27.0a8a1b6-1_amd64.deb /
-RUN dpkg -i /datadog-agent_5.7.0.git.28.ea23190-1_amd64.deb && rm /datadog-agent_5.7.0.git.28.ea23190-1_amd64.deb
-
+RUN echo "deb http://apt.datad0g.com/ nightly main" > /etc/apt/sources.list.d/datadog.list \
+ && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7A7DA52 \
+ && apt-get update \
+ && apt-get install --no-install-recommends -y datadog-agent="${AGENT_VERSION}" \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ 
+ 
 # Configure the Agent
 # 1. Listen to statsd from other containers
 # 2. Turn syslog off
