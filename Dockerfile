@@ -6,7 +6,7 @@ ENV DOCKER_DD_AGENT yes
 ENV AGENT_VERSION 1:5.6.0-1
 
 # Install the Agent
-COPY datadog-agent_5.6.0.git.137.af554d2-1_amd64.deb /datadog-agent.deb
+COPY datadog-agent.deb /datadog-agent.deb
 RUN dpkg -i /datadog-agent.deb
 # Configure the Agent
 # 1. Listen to statsd from other containers
